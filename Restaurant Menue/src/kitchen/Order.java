@@ -5,6 +5,7 @@ import main.Tablet;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Observable;
 
 public class Order {
 
@@ -27,7 +28,15 @@ public class Order {
         for (int i = 1; i < dishes.size(); i++) {
             result += ", " + dishes.get(i).name();
         }
-        result += "] of " + tablet;
+        result += "] of " + tablet + ", cooking time " + getTotalCookingTime() + "min";
         return result;
+    }
+
+    public boolean isEmpty(){
+        return dishes.isEmpty();
+    }
+
+    public int getTotalCookingTime(){
+        return dishes.stream().map(dish -> dish.getDuration()).reduce(0, Integer::sum);
     }
 }
